@@ -1,0 +1,9 @@
+#!/bin/bash
+while :
+do
+for i in ` find /acs/log -mtime +4 `
+do
+   rm -fr "$i"
+done
+  sleep 300
+done
