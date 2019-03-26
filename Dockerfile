@@ -1,4 +1,4 @@
-# raincloud
+# spbootdocker
 #
 # VERSION 1.0
 FROM registry.acs.aliyun.com/open/java8:4.0.0
@@ -9,11 +9,11 @@ COPY acs /acs
 
 WORKDIR /acs
 
-RUN echo "raincloud setup"
+RUN echo "spbootdocker setup"
 
 # Expose the default port
 EXPOSE 8080
 
 ENTRYPOINT ["/acs/acsstart"]
 
-RUN echo "raincloud run"
+RUN echo "spbootdocker run"
