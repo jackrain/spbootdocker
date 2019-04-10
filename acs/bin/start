@@ -26,7 +26,7 @@ function ExportPath(){
 
 function GetAgent(){
         if  [ ! -n "$CONF_AGENT" ] ;then
-        echo "CONF_AGENT IS NULL MUST TO SET"
+        echo "CONF_AGENT IS NULL"
         else
         echo "get agent"
         echo "$CONF_AGENT"
@@ -39,7 +39,11 @@ function GetAgent(){
 }
 function Start(){
 	rm -f tpid
-	exec java -javaagent:$AGENT -Djava.security.egd=file:/dev/./urandom -jar /acs/user/src/$APP_NAME.jar $JAVA_OPTS --spring.config.location=$CONF_LOCAL --server.port = 8080 > /dev/stdout 2>&1 &
+	if  [ ! -n "$AGENT" ] ;then
+	    exec java -Djava.security.egd=file:/dev/./urandom -jar /acs/user/src/$APP_NAME.jar $JAVA_OPTS --spring.config.location=$CONF_LOCAL --server.port = 8080 > /dev/stdout 2>&1 &
+	else
+	    exec java -javaagent:$AGENT -Djava.security.egd=file:/dev/./urandom -jar /acs/user/src/$APP_NAME.jar $JAVA_OPTS --spring.config.location=$CONF_LOCAL --server.port = 8080 > /dev/stdout 2>&1 &
+	fi
 	echo "/acs/user/src/$APP_NAME.jar"
 	echo $! > tpid
 	echo Start springboot Success!
