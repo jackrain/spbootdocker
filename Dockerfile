@@ -15,6 +15,8 @@ RUN echo "https://mirrors.aliyun.com/alpine/v3.9/community/" >> /etc/apk/reposit
 
 RUN /bin/sh -c "apk add --no-cache bash"
 
+RUN /bin/sh -c "apk add unzip"
+
 # 设置时区为上海
 RUN apk add tzdata && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && echo "Asia/Shanghai" > /etc/timezone \
