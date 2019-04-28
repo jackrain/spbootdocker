@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 AGENT=""
 
 export JAVA_OPTS="-Djava.security.egd=file:/dev/./urandom $JAVA_OPTS"
