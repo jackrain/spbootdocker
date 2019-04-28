@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash	
 AGENT=""
 
 export JAVA_OPTS="-Djava.security.egd=file:/dev/./urandom $JAVA_OPTS"
@@ -19,7 +19,7 @@ else
         echo "HTTP_PORT = $HTTP_PORT"
 fi
 
-
+FAT_JAR_PARAMS="$HTTP_PORT "$SP_PARAMS
 
 
 if [ -z $CONF_LOCAL ];then
@@ -53,9 +53,9 @@ function GetAgent(){
 function Start(){
 	rm -f tpid
 	if  [ ! -n "$AGENT" ] ;then
-	    exec java $JAVA_OPTS -jar /acs/user/src/$APP_NAME.jar --spring.config.location=$CONF_LOCAL --server.port = $HTTP_PORT > /dev/stdout 2>&1 &
+	    exec java $JAVA_OPTS -jar /acs/user/src/$APP_NAME.jar ${FAT_JAR_PARAMS} > /dev/stdout 2>&1 &
 	else
-	    exec java -javaagent:$AGENT $JAVA_OPTS -jar /acs/user/src/$APP_NAME.jar --spring.config.location=$CONF_LOCAL --server.port = $HTTP_PORT > /dev/stdout 2>&1 &
+	    exec java -javaagent:$AGENT $JAVA_OPTS -jar /acs/user/src/$APP_NAME.jar ${FAT_JAR_PARAMS} > /dev/stdout 2>&1 &
 	fi
 	echo "/acs/user/src/$APP_NAME.jar"
 	echo $! > tpid
