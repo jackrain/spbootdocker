@@ -24,7 +24,7 @@ RUN apk add tzdata && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
 
 COPY acs /acs
 
-RUN mkdir -p /acs/src
+#RUN mkdir -p /acs/src
 
 RUN mkdir -p /acs/logs
 

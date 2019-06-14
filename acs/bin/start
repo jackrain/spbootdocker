@@ -53,9 +53,9 @@ function GetAgent(){
 function Start(){
 	rm -f tpid
 	if  [ ! -n "$AGENT" ] ;then
-	    exec java $JAVA_OPTS -jar /acs/user/src/$APP_NAME.jar ${FAT_JAR_PARAMS} > /dev/stdout 2>&1 &
+	    exec java $JAVA_OPTS -jar /acs/src/$APP_NAME.jar ${FAT_JAR_PARAMS} > /dev/stdout 2>&1 &
 	else
-	    exec java -javaagent:$AGENT $JAVA_OPTS -jar /acs/user/src/$APP_NAME.jar ${FAT_JAR_PARAMS} > /dev/stdout 2>&1 &
+	    exec java -javaagent:$AGENT $JAVA_OPTS -jar /acs/src/$APP_NAME.jar ${FAT_JAR_PARAMS} > /dev/stdout 2>&1 &
 	fi
 	echo "/acs/user/src/$APP_NAME.jar"
 	echo $! > tpid
@@ -66,9 +66,9 @@ function Cpapp(){
 	echo "Begin to copy app code to webapps"                                                                                                                                                                                         
 	CODE_EXIST=`ls /acs/code`                                                                                                                                                                                                    
 	if [ ! -z "$CODE_EXIST" ];then                                                                                                                                                                                              
-        rm -fr /acs/user/src/                                                                                                                                                                               
-        mkdir -p /acs/user/src                                                                                                                                                                               
-        cp -R /acs/code/* /acs/user/src/                                                                                                                                                                     
+        rm -fr /acs/src/                                                                                                                                                                               
+        mkdir -p /acs/src                                                                                                                                                                               
+        cp -R /acs/code/* /acs/src/                                                                                                                                                                     
 	fi
 }
 
