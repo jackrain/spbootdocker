@@ -22,6 +22,23 @@ RUN apk add tzdata && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && echo "Asia/Shanghai" > /etc/timezone \
     && apk del tzdata
 
+
+ARG JAVA_OPTS
+
+ARG PORT
+
+ARG APP_NAME
+
+#ENV SET
+
+ENV APP_NAME ${APP_NAME:-bootapp}
+
+ENV JAVA_OPTS ${JAVA_OPTS:--Djava.security.egd=file:/dev/./urandom}
+
+ENV HTTP_PORT ${PORT:-8080}
+
+RUN echo $HTTP_PORT $APP_NAME $JAVA_OPTS
+
 COPY acs /acs
 
 #RUN mkdir -p /acs/src
@@ -33,7 +50,7 @@ WORKDIR /acs
 RUN echo "spbootdocker setup"
 
 # Expose the default port
-EXPOSE 8080
+EXPOSE $PORT
 
 ENTRYPOINT ["bash","/acs/acsstart"]
 
