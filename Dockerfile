@@ -50,7 +50,7 @@ WORKDIR /acs
 RUN echo "spbootdocker setup"
 
 # Expose the default port
-EXPOSE $PORT
+EXPOSE $HTTP_PORT
 
 ENTRYPOINT ["bash","/acs/acsstart"]
 
