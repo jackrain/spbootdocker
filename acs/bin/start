@@ -1,7 +1,7 @@
 #!/bin/bash	
 AGENT=""
 
-FAT_JAR_PARAMS="$HTTP_PORT "$SP_PARAMS
+FAT_JAR_PARAMS="--server.port $HTTP_PORT "$SP_PARAMS
 
 echo "APP_NAME = $APP_NAME"
 
