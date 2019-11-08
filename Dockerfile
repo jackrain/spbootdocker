@@ -23,21 +23,21 @@ RUN apk add tzdata && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && apk del tzdata
 
 
-ARG JAVA_OPTS
+ONBUILD ARG JAR_FILE
 
-ARG PORT
+ONBUILD ARG PORT
 
-ARG APP_NAME
+ONBUILD ARG JAVA_OPTS
 
 #ENV SET
 
-ENV APP_NAME ${APP_NAME:-bootapp}
+ONBUILD ENV JAR_FILE ${JAR_FILE:-bootapp.jar}
 
-ENV JAVA_OPTS ${JAVA_OPTS:--Djava.security.egd=file:/dev/./urandom}
+ONBUILD ENV JAVA_OPTS ${JAVA_OPTS:--Djava.security.egd=file:/dev/./urandom}
 
-ENV HTTP_PORT ${PORT:-8080}
+ONBUILD ENV HTTP_PORT ${PORT:-8080}
 
-RUN echo $HTTP_PORT $APP_NAME $JAVA_OPTS
+#RUN echo $HTTP_PORT $APP_NAME $JAVA_OPTS
 
 COPY acs /acs
 
@@ -49,8 +49,9 @@ WORKDIR /acs
 
 RUN echo "spbootdocker setup"
 
+EXPOSE 8080
 # Expose the default port
-EXPOSE $HTTP_PORT
+ONBUILD EXPOSE $HTTP_PORT
 
 ENTRYPOINT ["bash","/acs/acsstart"]
 

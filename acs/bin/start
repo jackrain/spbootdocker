@@ -1,9 +1,21 @@
-#!/bin/bash	
+#!/bin/bash
+
+
 AGENT=""
 
-FAT_JAR_PARAMS="--server.port $HTTP_PORT "$SP_PARAMS
+if  [ ! -n "$JAR_FILE" ] ;then
+     JAR_FILE=bootapp.jar
+fi
 
-echo "APP_NAME = $APP_NAME"
+if  [ ! -n "$HTTP_PORT" ] ;then
+     HTTP_PORT=8080
+fi
+
+if  [ ! -n "$JAVA_OPTS" ] ;then
+     JAVA_OPTS=-Djava.security.egd=file:/dev/./urandom
+fi
+
+echo -e "HTTP_PORT:$HTTP_PORT\nJAR_FILE:$JAR_FILE\nJAVA_OPTS:$JAVA_OPTS"
 
 echo "FAT_JAR_PARAMS = $FAT_JAR_PARAMS"
 
@@ -31,11 +43,11 @@ function GetAgent(){
 function Start(){
 	rm -f tpid
 	if  [ ! -n "$AGENT" ] ;then
-	    exec java $JAVA_OPTS -jar /acs/src/$APP_NAME.jar ${FAT_JAR_PARAMS} > /dev/stdout 2>&1 &
+	    exec java $JAVA_OPTS -Dserver.port=$HTTP_PORT -jar /acs/src/$JAR_FILE ${FAT_JAR_PARAMS} > /dev/stdout 2>&1 &
 	else
-	    exec java -javaagent:$AGENT $JAVA_OPTS -jar /acs/src/$APP_NAME.jar ${FAT_JAR_PARAMS} > /dev/stdout 2>&1 &
+	    exec java -javaagent:$AGENT $JAVA_OPTS -Dserver.port=$HTTP_PORT -jar /acs/src/$JAR_FILE ${FAT_JAR_PARAMS} > /dev/stdout 2>&1 &
 	fi
-	echo "/acs/src/$APP_NAME.jar"
+	echo "/acs/src/$JAR_FILE"
 	echo $! > tpid
 	echo Start springboot Success!
 }
