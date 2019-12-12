@@ -13,6 +13,8 @@ fi
 
 if  [ ! -n "$JAVA_OPTS" ] ;then
      JAVA_OPTS=-Djava.security.egd=file:/dev/./urandom
+else
+     JAVA_OPTS="$JAVA_OPTS -Djava.security.egd=file:/dev/./urandom"
 fi
 
 echo -e "HTTP_PORT:$HTTP_PORT\nJAR_FILE:$JAR_FILE\nJAVA_OPTS:$JAVA_OPTS"
