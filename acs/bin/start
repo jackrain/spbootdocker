@@ -43,9 +43,9 @@ function GetAgent(){
 function Start(){
 	rm -f tpid
 	if  [ ! -n "$AGENT" ] ;then
-	    exec java $JAVA_OPTS $CATALINA_OPTS -Dserver.port=$HTTP_PORT -jar /acs/src/$JAR_FILE ${FAT_JAR_PARAMS} > /dev/stdout 2>&1 &
+	    exec java $CATALINA_OPTS $JAVA_OPTS -Dserver.port=$HTTP_PORT -jar /acs/src/$JAR_FILE ${FAT_JAR_PARAMS} > /dev/stdout 2>&1 &
 	else
-	    exec java -javaagent:$AGENT $JAVA_OPTS $CATALINA_OPTS -Dserver.port=$HTTP_PORT -jar /acs/src/$JAR_FILE ${FAT_JAR_PARAMS} > /dev/stdout 2>&1 &
+	    exec java -javaagent:$AGENT $CATALINA_OPTS $JAVA_OPTS -Dserver.port=$HTTP_PORT -jar /acs/src/$JAR_FILE ${FAT_JAR_PARAMS} > /dev/stdout 2>&1 &
 	fi
 	echo "/acs/src/$JAR_FILE"
 	echo $! > tpid
