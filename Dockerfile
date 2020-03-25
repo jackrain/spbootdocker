@@ -3,6 +3,7 @@
 # VERSION 1.0
 #FROM registry.acs.aliyun.com/open/java8:4.0.0
 #FROM openjdk:8-jdk
+#alpine
 FROM openjdk:8-jdk-alpine
 
 MAINTAINER jackrain
