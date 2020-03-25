@@ -18,10 +18,10 @@ RUN echo "deb http://mirrors.aliyun.com/debian/ stretch-backports main non-free 
 RUN echo "deb-src http://mirrors.aliyun.com/debian/ stretch-backports main non-free contrib" >> /etc/apt/sources.list
 
 RUN /bin/sh -c "apt-get update"
-RUN /bin/sh -c "apt-get install unzip"
+RUN /bin/sh -c "apt install -y unzip"
 
 # 设置时区为上海
-RUN "ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime"
+RUN /bin/sh -c "cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime"
 
 ONBUILD ARG JAR_FILE
 
