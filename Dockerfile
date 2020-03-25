@@ -3,25 +3,18 @@
 # VERSION 1.0
 #FROM registry.acs.aliyun.com/open/java8:4.0.0
 #FROM openjdk:8-jdk
-FROM openjdk:8-jdk-alpine
+FROM registry.acs.aliyun.com/open/java8:5.0.0
 
 MAINTAINER jackrain
 
-RUN /bin/sh -c "mv /etc/apk/repositories /etc/apk/repositories.bak"
+RUN /bin/sh -c "yum clean all"
 
-RUN echo "https://mirrors.aliyun.com/alpine/v3.9/main/" >> /etc/apk/repositories
+RUN /bin/sh -c "yum makecache fast"
 
-RUN echo "https://mirrors.aliyun.com/alpine/v3.9/community/" >> /etc/apk/repositories
-
-RUN /bin/sh -c "apk add --no-cache bash"
-
-RUN /bin/sh -c "apk add unzip"
+RUN /bin/sh -c "yum -y install unzip"
 
 # 设置时区为上海
-RUN apk add tzdata && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
-    && echo "Asia/Shanghai" > /etc/timezone \
-    && apk del tzdata
-
+RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
 ONBUILD ARG JAR_FILE
 
